@@ -1,7 +1,5 @@
 const express = require("express");
 const connect = require("./config/database");
-const { Tweet } = require("./Models/tweet");
-const TweetRepo = require("./repo/tweet-repo");
 
 const app = express();
 
