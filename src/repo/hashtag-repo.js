@@ -1,6 +1,6 @@
-const Hashtag = require("../Models/hashtags");
+import Hashtag from "../Models/hashtags.js";
 
-class HashtagRepository {
+class hashtagRepo {
   async create(data) {
     try {
       const tag = await Hashtag.create(data);
@@ -49,4 +49,4 @@ class HashtagRepository {
   }
 }
 
-module.exports = HashtagRepository;
+export default hashtagRepo;

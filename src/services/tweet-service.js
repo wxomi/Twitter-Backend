@@ -1,9 +1,9 @@
-const { tweetRepo, hashTagRepo } = require("../repo");
+import { tweetRepo, hashtagRepo } from "../repo/index.js";
 
 class TweetService {
   constructor() {
     this.tweetRepository = new tweetRepo();
-    this.hashtagRepository = new hashTagRepo();
+    this.hashtagRepository = new hashtagRepo();
   }
 
   async create(data) {
@@ -31,4 +31,4 @@ class TweetService {
   }
 }
 
-module.exports = TweetService;
+export default TweetService;
