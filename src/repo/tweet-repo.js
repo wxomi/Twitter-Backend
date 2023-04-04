@@ -1,22 +1,9 @@
 import Tweet from "../Models/tweet.js";
+import CrudRepo from "./curd-repo.js";
 
-class tweetRepo {
-  async create(data) {
-    try {
-      const tweet = await Tweet.create(data);
-      return tweet;
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  async get(id) {
-    try {
-      const tweet = await Tweet.findById(id);
-      return tweet;
-    } catch (error) {
-      console.log(error);
-    }
+class tweetRepo extends CrudRepo {
+  constructor() {
+    super(Tweet);
   }
 
   async getWithComments(id) {
@@ -33,15 +20,6 @@ class tweetRepo {
   async getAll(offset, limit) {
     try {
       const tweet = await Tweet.find().skip(offset).limit(limit);
-      return tweet;
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  async destroy(id) {
-    try {
-      const tweet = await Tweet.findByIdAndRemove(id);
       return tweet;
     } catch (error) {
       console.log(error);
