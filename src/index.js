@@ -8,4 +8,9 @@ app.listen(3001, async () => {
   console.log("server started");
   await connect();
   console.log("MongoDB connected");
+  const repo = new TweetService();
+  repo.create({
+    content: "Hello this is my #SANKET #tweet",
+    email: "wxomi@gmail.com",
+  });
 });
