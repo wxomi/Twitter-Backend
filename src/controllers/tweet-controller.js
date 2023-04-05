@@ -15,5 +15,3 @@ export const createTweet = async (req, res) => {
     console.log(error);
   }
 };
-
-export { createTweet };
