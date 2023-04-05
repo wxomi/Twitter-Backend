@@ -19,9 +19,9 @@ class CrudRepo {
       console.log("Something went wrong in the repository layer");
     }
   }
-  async get(id) {
+  get(id) {
     try {
-      const res = await this.model.findById(id);
+      const res = this.model.findById(id).populate({ path: "likes" });
       return res;
     } catch (error) {
       console.log("Something went wrong in the repository layer");

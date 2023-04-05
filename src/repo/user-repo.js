@@ -1,9 +1,9 @@
-import Like from "../Models/like.js";
+import User from "../Models/user.js";
 import CrudRepo from "./curd-repo.js";
 
-class LikeRepo extends CrudRepo {
+class userRepo extends CrudRepo {
   constructor() {
-    super(Like);
+    super(User);
   }
 
   async findByUserAndLikeable(data) {
@@ -16,4 +16,4 @@ class LikeRepo extends CrudRepo {
   }
 }
 
-export default LikeRepo;
+export default userRepo;
