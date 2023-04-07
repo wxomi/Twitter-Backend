@@ -1,5 +1,6 @@
 import Tweet from "../Models/tweet.js";
-import CrudRepo from "./curd-repo.js";
+import Comment from "../Models/comment.js";
+import CrudRepo from "./crud-repo.js";
 
 class tweetRepo extends CrudRepo {
   constructor() {
@@ -8,9 +9,10 @@ class tweetRepo extends CrudRepo {
 
   async getWithComments(id) {
     try {
-      const tweet = await Tweet.findById(id)
-        .populate({ path: "comments" })
-        .lean();
+      const tweet = await Tweet.findById(id).populate({ path: "comments" });
+      tweet.comments = await Comment.populate(tweet.comments, {
+        path: "comments",
+      });
       return tweet;
     } catch (error) {
       console.log(error);

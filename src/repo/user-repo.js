@@ -1,5 +1,5 @@
 import User from "../Models/user.js";
-import CrudRepo from "./curd-repo.js";
+import CrudRepo from "./crud-repo.js";
 
 class userRepo extends CrudRepo {
   constructor() {

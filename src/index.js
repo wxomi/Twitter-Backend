@@ -6,10 +6,10 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use("/api", apiRoutes);
 
 app.listen(3001, async () => {
-  console.log("server started");
+  console.log("Server Started on PORT:", 3001);
   await connect();
   console.log("MongoDB connected");
-  app.use("/api", apiRoutes);
 });

@@ -9,6 +9,7 @@ class CrudRepo {
       return res;
     } catch (error) {
       console.log("Something went wrong in the repository layer");
+      throw error;
     }
   }
   async destroy(id) {
@@ -24,7 +25,9 @@ class CrudRepo {
       const res = this.model.findById(id).populate({ path: "likes" });
       return res;
     } catch (error) {
+      console.log(error);
       console.log("Something went wrong in the repository layer");
+      throw error;
     }
   }
   async getAll(id) {
@@ -33,6 +36,7 @@ class CrudRepo {
       return res;
     } catch (error) {
       console.log("Something went wrong in the repository layer");
+      throw error;
     }
   }
   async update(id, data) {
@@ -41,6 +45,7 @@ class CrudRepo {
       return res;
     } catch (error) {
       console.log("Something went wrong in the repository layer");
+      throw error;
     }
   }
 }
