@@ -7,7 +7,7 @@ export const createComment = async (req, res) => {
     const response = await commentService.createComment(
       req.query.modelId,
       req.query.modelType,
-      req.body.userId,
+      req.user.id,
       req.body.content
     );
     return res.status(201).json({
@@ -17,6 +17,7 @@ export const createComment = async (req, res) => {
       err: {},
     });
   } catch (error) {
+    console.log(error);
     return res.status(500).json({
       success: false,
       data: {},

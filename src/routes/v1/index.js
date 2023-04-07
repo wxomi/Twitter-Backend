@@ -16,6 +16,6 @@ router.post("/login", login);
 
 router.post("/likes/toggle", togglelike);
 
-router.post("/comments", createComment);
+router.post("/comments", [authenticate], createComment);
 
 export default router;
