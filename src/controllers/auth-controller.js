@@ -1,10 +1,14 @@
-import { userRepo } from "../repo/index.js";
+import UserService from "../services/user-service.js";
 
-const userrepo = new userRepo();
+const userService = new UserService();
 
-export const createUser = async (req, res) => {
+export const signUp = async (req, res) => {
   try {
-    const response = await userrepo.create(req.body);
+    const response = await userService.signUp({
+      email: req.body.email,
+      password: req.body.password,
+      name: req.body.name,
+    });
     return res.status(201).json({
       success: true,
       message: "Successfully created a user",
