@@ -10,25 +10,36 @@ class TweetService {
     try {
       const content = data.content;
       let tags = content.match(/#[a-zA-Z0-9_]+/g);
-      tags = tags
-        .map((tag) => tag.substring(1))
-        .map((tag) => tag.toLowerCase());
-      const tweet = await this.tweetRepository.create(data);
-      let alreadyPresentTags = await this.hashtagRepository.findByName(tags);
-      let titleOfPresentTags = alreadyPresentTags.map((tags) => tags.title);
+      if (tags && tags.length > 0) {
+        tags = tags
+          .map((tag) => tag.substring(1))
+          .map((tag) => tag.toLowerCase());
+      }
+      const tweet = await this.tweetRepository.create({ content });
+      if (data.images && data.images.length > 0) {
+        data.images.forEach((ele) => {
+          tweet.images.push(ele.location);
+        });
+      }
+      await tweet.save();
+      if (tags && tags.length > 0) {
+        let alreadyPresentTags = await this.hashtagRepository.findByName(tags);
+        let titleOfPresentTags = alreadyPresentTags.map((tags) => tags.title);
 
-      let newTags = tags.filter((tag) => !titleOfPresentTags.includes(tag));
-      newTags = newTags.map((tag) => {
-        return {
-          title: tag,
-          tweets: [tweet.id],
-        };
-      });
-      await this.hashtagRepository.bulkCreate(newTags);
-      alreadyPresentTags.forEach((tag) => {
-        tag.tweets.push(tweet.id);
-        tag.save();
-      });
+        let newTags = tags.filter((tag) => !titleOfPresentTags.includes(tag));
+        newTags = newTags.map((tag) => {
+          return {
+            title: tag,
+            tweets: [tweet.id],
+          };
+        });
+        await this.hashtagRepository.bulkCreate(newTags);
+
+        alreadyPresentTags.forEach((tag) => {
+          tag.tweets.push(tweet.id);
+          tag.save();
+        });
+      }
 
       return tweet;
     } catch (error) {
