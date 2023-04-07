@@ -14,6 +14,15 @@ class userRepo extends CrudRepo {
       throw error;
     }
   }
+
+  async findBy(data) {
+    try {
+      const response = await User.findOne({ email: data });
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export default userRepo;

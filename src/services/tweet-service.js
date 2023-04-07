@@ -24,13 +24,13 @@ class TweetService {
           tweets: [tweet.id],
         };
       });
-      const response = await this.hashtagRepository.bulkCreate(newTags);
+      await this.hashtagRepository.bulkCreate(newTags);
       alreadyPresentTags.forEach((tag) => {
         tag.tweets.push(tweet.id);
         tag.save();
       });
 
-      return response;
+      return tweet;
     } catch (error) {
       console.log(error);
       throw error;
