@@ -18,4 +18,10 @@ router.post("/likes/toggle", togglelike);
 
 router.post("/comments", [authenticate], createComment);
 
+router.get("/ping", (req, res) => {
+  return res.status(200).json({
+    message: "pinged",
+  });
+});
+
 export default router;
