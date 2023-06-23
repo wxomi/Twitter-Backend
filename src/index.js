@@ -19,5 +19,6 @@ setupCron();
 app.listen(3001, async () => {
   console.log("Server Started on PORT:", 3001);
   await connect();
+
   console.log("MongoDB connected");
 });

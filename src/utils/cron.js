@@ -6,6 +6,15 @@ let delets = false;
 const setupCron = () => {
   const job = cron.schedule("0 0 * * *", async () => {
     try {
+      const redisSet = async () => {
+        try {
+          const response = await redis.get("hello");
+          console.log("redis ", response);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+
       if (delets === false) {
         const result = await Keepalive.create({
           title: "Keepalive",

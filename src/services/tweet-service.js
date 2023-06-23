@@ -1,4 +1,5 @@
-import { tweetRepo, hashtagRepo } from "../repo/index.js";
+import redis from "../config/redis-client.js";
+import { hashtagRepo, tweetRepo } from "../repo/index.js";
 
 class TweetService {
   constructor() {
@@ -50,7 +51,21 @@ class TweetService {
 
   async get(id) {
     try {
+      const response = await redis.get(id);
+      if (response) {
+        const tweet = JSON.parse(response);
+        setImmediate(async () => {
+          const tweet = await this.tweetRepository.getWithComments(id);
+          await redis.set(id, JSON.stringify(tweet));
+          await redis.expire(id, 10 * 60);
+        });
+        return tweet;
+      }
+
       const tweet = await this.tweetRepository.getWithComments(id);
+      await redis.set(id, JSON.stringify(tweet));
+      await redis.expire(id, 10 * 60);
+
       return tweet;
     } catch (error) {
       console.log(error);
