@@ -54,12 +54,12 @@ class TweetService {
       const response = await redis.get(id);
       if (response) {
         const tweet = JSON.parse(response);
-        // to update the cache in the background after sending the response
-        // setImmediate(async () => {
-        //   const tweet = await this.tweetRepository.getWithComments(id);
-        //   await redis.set(id, JSON.stringify(tweet));
-        //   await redis.expire(id, 10 * 60);
-        // });
+
+        setImmediate(async () => {
+          const tweet = await this.tweetRepository.getWithComments(id);
+          await redis.set(id, JSON.stringify(tweet));
+          await redis.expire(id, 10 * 60);
+        });
         return tweet;
       }
 
