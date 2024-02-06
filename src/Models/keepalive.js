@@ -7,7 +7,7 @@ const keepaliveSchema = new mongoose.Schema(
       required: true,
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 const Keepalive = mongoose.model("Keepalive", keepaliveSchema);

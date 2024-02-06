@@ -18,6 +18,6 @@ export const passportAuth = (passport) => {
       } else {
         return done(null, user);
       }
-    })
+    }),
   );
 };

@@ -14,7 +14,7 @@ const hashtagSchema = new mongoose.Schema(
       },
     ],
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 // hashtagSchema.pre("save", function (next) {
